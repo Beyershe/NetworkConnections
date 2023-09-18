@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using Unity.Netcode;
+using System;
 
 public class NetworkHandler : NetworkBehaviour
 {
@@ -46,8 +47,8 @@ public class NetworkHandler : NetworkBehaviour
     {
         Debug.Log("Client Started");
         NetworkManager.OnClientConnectedCallback += ClientOnClientConnected;
-        NetworkManager.OnClientDisconnectedCallback += ClientOnClientDisconnected;
-        NetworkManager.OnServerStopped += ClientOnClientStopped;
+        NetworkManager.OnClientDisconnectCallback += ClientOnClientDisconnected;
+        NetworkManager.OnClientStopped += ClientOnClientStopped;
         PrintMe();
     }
 
@@ -67,8 +68,13 @@ public class NetworkHandler : NetworkBehaviour
         Debug.Log("Client Stopped");
         hasPrinted = false;
         NetworkManager.OnClientConnectedCallback -= ClientOnClientConnected;
-        NetworkManager.OnClientDisconnectedCallback -= ClientOnClientDisconnected;
+        NetworkManager.OnClientDisconnectCallback -= ClientOnClientDisconnected;
         NetworkManager.OnClientStopped -= ClientOnClientStopped;
+    }
+
+    private void ClientOnClientStopped(bool obj)
+    {
+        throw new NotImplementedException();
     }
 
 
@@ -77,7 +83,7 @@ public class NetworkHandler : NetworkBehaviour
     {
         Debug.Log("Server Started");
         NetworkManager.OnClientConnectedCallback += ServerOnClientConnected;
-        NetworkManager.OnClientDisconnectedCallback += ServerOnClientDisconnected;
+        NetworkManager.OnClientDisconnectCallback += ServerOnClientDisconnected;
         NetworkManager.OnServerStopped += ServerOnServerStopped;
         PrintMe();
     }
@@ -95,7 +101,7 @@ public class NetworkHandler : NetworkBehaviour
         Debug.Log("Server Stopped");
         hasPrinted = false;
         NetworkManager.OnClientConnectedCallback -= ServerOnClientConnected;
-        NetworkManager.OnClientDisconnectedCallback -= ServerOnClientDisconnected;
+        NetworkManager.OnClientDisconnectCallback -= ServerOnClientDisconnected;
         NetworkManager.OnServerStopped -= ServerOnServerStopped;
     }
 
