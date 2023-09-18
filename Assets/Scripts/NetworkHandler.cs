@@ -6,7 +6,6 @@ using Unity.Netcode;
 
 public class NetworkHandler : NetworkBehaviour
 {
-    //Like before Netcode refuses to work but suggestions appear like it is there while typing
     void Start()
     {
         NetworkManager.OnClientStarted += OnClientStarted;
@@ -48,7 +47,7 @@ public class NetworkHandler : NetworkBehaviour
         Debug.Log("Client Started");
         NetworkManager.OnClientConnectedCallback += ClientOnClientConnected;
         NetworkManager.OnClientDisconnectedCallback += ClientOnClientDisconnected;
-        NetworkManager.OnClientStopped += ClientOnClientStopped;
+        NetworkManager.OnServerStopped += ClientOnClientStopped;
         PrintMe();
     }
 

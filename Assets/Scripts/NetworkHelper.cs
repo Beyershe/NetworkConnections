@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 
 public class NetworkHelper : MonoBehaviour
 {
-    //Netcode refuses to add its namespace after multiple restarts and trying to regenerate the files
-    //suggestions appear like it is there while typing
+
     private static void StartButtons()
     {
         if (GUILayout.Button("Host")) NetworkManager.Singleton.StartHost();
